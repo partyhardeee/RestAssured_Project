@@ -1,11 +1,9 @@
 package tests;
 
-import io.restassured.http.ContentType;
+import Specifications.SpecificationsClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pojoClasses.Data;
-import pojoClasses.Root;
-import pojoClasses.UserClass;
+import pojoClasses.*;
 
 import java.util.List;
 
@@ -17,10 +15,10 @@ public class ApiTest {
 
     @Test
     public void checkUsers() {
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
         List<UserClass> users = given()
                 .when()
-                .contentType(ContentType.JSON)
-                .get(URL + "api/users?page=2")
+                .get("api/users?page=2")
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserClass.class);
 
@@ -30,9 +28,10 @@ public class ApiTest {
 
     @Test
     public void checkUser() {
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
         Data user = given()
                 .when()
-                .get(URL + "api/users/2")
+                .get("api/users/2")
                 .then().log().all()
                 .extract()
                 .body()
@@ -41,6 +40,22 @@ public class ApiTest {
 
         Assertions.assertEquals("Janet", user.getFirst_name());
 
+    }
+
+    @Test
+    public void createUserTest() {
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(201));
+        String name = "test";
+        String job = "test";
+        Create user = new Create("name", "job");
+        SuccessCreate successCreate = given()
+                .body(user)
+                .when()
+                .post("api/users/2")
+                .then().log().all()
+                .extract().as(SuccessCreate.class);
+
+        System.out.println(successCreate.getName());
     }
 
 

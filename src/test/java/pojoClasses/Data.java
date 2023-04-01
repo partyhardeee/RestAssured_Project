@@ -1,11 +1,11 @@
 package pojoClasses;
 
 public class Data {
-    public Integer id;
-    public String email;
-    public String first_name;
-    public String last_name;
-    public String avatar;
+    private Integer id;
+    private String email;
+    private String first_name;
+    private String last_name;
+    private String avatar;
 
     public Data() {
     }
