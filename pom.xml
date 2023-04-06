@@ -26,6 +26,12 @@
             <version>2.13.2.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.vladislavsevruk</groupId>
+            <artifactId>recursive-assertion-assertj</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

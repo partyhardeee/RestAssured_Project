@@ -1,10 +1,13 @@
 package tests;
 
 import Specifications.SpecificationsClass;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pojoClasses.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -44,18 +47,39 @@ public class ApiTest {
 
     @Test
     public void createUserTest() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(201));
         String name = "test";
         String job = "test";
-        Create user = new Create("name", "job");
+        Create user = new Create(name, job);
         SuccessCreate successCreate = given()
                 .body(user)
                 .when()
-                .post("api/users/2")
+                .post("api/users")
                 .then().log().all()
                 .extract().as(SuccessCreate.class);
+        softAssertions.assertThat(successCreate.getId()).isNotEmpty();
+        softAssertions.assertThat(formatter.format(successCreate.getCreatedAt())).isEqualTo(formatter.format(new Date()));
+        softAssertions.assertAll();
+    }
 
-        System.out.println(successCreate.getName());
+    @Test
+    public void updateUserTest() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
+        String name = "test";
+        String job = "test1";
+        UpdateUser user = new UpdateUser(name, job);
+        Root successUpdate = given()
+                .body(user)
+                .when()
+                .put("api/users/2")
+                .then().log().all()
+                .extract().as(Root.class);
+        softAssertions.assertThat(formatter.format(successUpdate.getUpdatedAt())).isEqualTo(formatter.format(new Date()));
+        softAssertions.assertAll();
     }
 
 
