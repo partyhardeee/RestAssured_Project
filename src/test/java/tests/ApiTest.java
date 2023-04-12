@@ -2,13 +2,16 @@ package tests;
 
 import Specifications.SpecificationsClass;
 import org.assertj.core.api.SoftAssertions;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pojoClasses.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -80,6 +83,27 @@ public class ApiTest {
                 .extract().as(Root.class);
         softAssertions.assertThat(formatter.format(successUpdate.getUpdatedAt())).isEqualTo(formatter.format(new Date()));
         softAssertions.assertAll();
+    }
+
+    @Test
+    public void registerUserTest() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        Integer id = 4;
+        String token = "QpwL5tke4Pnpja7X4";
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
+        String email = "eve.holt@reqres.in";
+        String password = "pistol";
+        Register register = new Register(email, password);
+        SuccessRegister successRegister = given()
+                .body(register)
+                .when()
+                .post("api/register")
+                .then().log().all()
+                .extract().as(SuccessRegister.class);
+        softAssertions.assertThat(successRegister.getId()).isEqualTo(id);
+        softAssertions.assertThat(successRegister.getToken()).isEqualTo(token);
+        softAssertions.assertAll();
+
     }
 
 
