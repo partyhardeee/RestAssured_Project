@@ -1,4 +1,4 @@
-package pojoClasses;
+package pojoClasses.response;
 
 public class Data {
     private Integer id;

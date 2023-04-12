@@ -1,9 +1,11 @@
-package pojoClasses;
+package pojoClasses.response;
 
 import java.util.Date;
 
 
-public class SuccessCreate extends Create {
+public class SuccessCreate {
+    private String name;
+    private String job;
     private String id;
     private Date createdAt;
 
@@ -11,7 +13,8 @@ public class SuccessCreate extends Create {
     }
 
     public SuccessCreate(String name, String job, String id, Date createdAt) {
-        super(name, job);
+        this.name = name;
+        this.job = job;
         this.id = id;
         this.createdAt = createdAt;
     }

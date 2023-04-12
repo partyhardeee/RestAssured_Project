@@ -1,4 +1,4 @@
-package pojoClasses;
+package pojoClasses.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

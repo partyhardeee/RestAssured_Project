@@ -1,11 +1,11 @@
-package pojoClasses;
+package pojoClasses.request;
 
 
-public class Register {
+public class RegisterUser {
     private String email;
     private String password;
 
-    public Register(String email, String password) {
+    public RegisterUser(String email, String password) {
         this.email = email;
         this.password = password;
     }

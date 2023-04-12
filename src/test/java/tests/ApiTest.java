@@ -2,10 +2,12 @@ package tests;
 
 import Specifications.SpecificationsClass;
 import org.assertj.core.api.SoftAssertions;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pojoClasses.*;
+import pojoClasses.request.CreateUser;
+import pojoClasses.request.RegisterUser;
+import pojoClasses.request.UpdateUser;
+import pojoClasses.response.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,13 +51,33 @@ public class ApiTest {
     }
 
     @Test
-    public void createUserTest() {
+    public void createUserByClass() {
         SoftAssertions softAssertions = new SoftAssertions();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(201));
         String name = "test";
         String job = "test";
-        Create user = new Create(name, job);
+        CreateUser user = new CreateUser(name, job);
+        SuccessCreate successCreate = given()
+                .body(user)
+                .when()
+                .post("api/users")
+                .then().log().all()
+                .extract().as(SuccessCreate.class);
+        softAssertions.assertThat(successCreate.getId()).isNotEmpty();
+        softAssertions.assertThat(formatter.format(successCreate.getCreatedAt())).isEqualTo(formatter.format(new Date()));
+        softAssertions.assertAll();
+    }
+    @Test
+    public void createUserByMap() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(201));
+        String name = "test";
+        String job = "test";
+        Map<String, Object> user = new HashMap<>();
+        user.put("name" , name);
+        user.put("job", job);
         SuccessCreate successCreate = given()
                 .body(user)
                 .when()
@@ -93,7 +115,7 @@ public class ApiTest {
         SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
         String email = "eve.holt@reqres.in";
         String password = "pistol";
-        Register register = new Register(email, password);
+        RegisterUser register = new RegisterUser(email, password);
         SuccessRegister successRegister = given()
                 .body(register)
                 .when()
@@ -103,7 +125,21 @@ public class ApiTest {
         softAssertions.assertThat(successRegister.getId()).isEqualTo(id);
         softAssertions.assertThat(successRegister.getToken()).isEqualTo(token);
         softAssertions.assertAll();
+    }
 
+    @Test
+    public void UnsuccessfulRegisterTest() {
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(400));
+        String email = "eve.holt@reqres.in";
+        String password = null;
+        RegisterUser register = new RegisterUser(email, password);
+        UnsuccessfulRegister unsuccessfulRegister = given()
+                .body(register)
+                .when()
+                .post("api/register")
+                .then().log().all()
+                .extract().as(UnsuccessfulRegister.class);
+        Assertions.assertEquals(unsuccessfulRegister.getError(), "Missing password");
     }
 
 

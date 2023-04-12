@@ -1,4 +1,4 @@
-package pojoClasses;
+package pojoClasses.response;
 
 public class SuccessRegister {
     private Integer id;

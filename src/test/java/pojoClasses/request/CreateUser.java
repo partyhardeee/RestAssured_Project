@@ -1,16 +1,16 @@
-package pojoClasses;
+package pojoClasses.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Create {
+public class CreateUser {
     protected String name;
     protected String job;
 
-    public Create() {
+    public CreateUser() {
     }
 
-    public Create(String name, String job) {
+    public CreateUser(String name, String job) {
         this.name = name;
         this.job = job;
     }
