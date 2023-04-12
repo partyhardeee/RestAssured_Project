@@ -1,7 +1,5 @@
 package pojoClasses.response;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UnsuccessfulRegister {
     private String error;
 
@@ -16,5 +14,9 @@ public class UnsuccessfulRegister {
 
     public String getError() {
         return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

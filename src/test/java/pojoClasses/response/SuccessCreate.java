@@ -19,6 +19,22 @@ public class SuccessCreate {
         this.createdAt = createdAt;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public String getName() {
         return name;
     }
