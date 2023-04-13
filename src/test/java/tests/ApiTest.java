@@ -20,18 +20,18 @@ import static io.restassured.RestAssured.given;
 public class ApiTest {
     private final static String URL = "https://reqres.in/";
 
-
     @Test
     public void checkUsers() {
+        SoftAssertions softAssertions = new SoftAssertions();
         SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
         List<UserClass> users = given()
                 .when()
                 .get("api/users?page=2")
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserClass.class);
-
-        users.forEach(x -> Assertions.assertTrue(x.getAvatar().contains(x.getId().toString())));
-        Assertions.assertTrue(users.stream().allMatch(x -> x.getEmail().endsWith("reqres.in")));
+        users.forEach(x -> softAssertions.assertThat(x.getAvatar()).contains(x.getId().toString()));
+        softAssertions.assertThat(users.stream().allMatch(x->x.getEmail().endsWith("reqres.in"))).isTrue();
+        softAssertions.assertAll();
     }
 
     @Test
@@ -140,6 +140,20 @@ public class ApiTest {
                 .then().log().all()
                 .extract().as(UnsuccessfulRegister.class);
         Assertions.assertEquals(unsuccessfulRegister.getError(), "Missing password");
+    }
+
+    @Test
+    public void checkUsersWithDelay() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        SpecificationsClass.installSpecification(SpecificationsClass.requestSpecification(URL), SpecificationsClass.responseSpecification(200));
+        List<UserClass> users = given()
+                .when()
+                .get("api/users?delay=3")
+                .then().log().all()
+                .extract().body().jsonPath().getList("data", UserClass.class);
+        users.forEach(x -> softAssertions.assertThat(x.getAvatar()).contains(x.getId().toString()));
+        softAssertions.assertThat(users.stream().allMatch(x->x.getEmail().endsWith("reqres.in"))).isTrue();
+        softAssertions.assertAll();
     }
 
 
