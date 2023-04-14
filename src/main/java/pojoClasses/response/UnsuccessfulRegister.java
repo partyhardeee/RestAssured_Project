@@ -4,11 +4,11 @@ public class UnsuccessfulRegister {
     private String error;
 
 
-    public UnsuccessfulRegister(){
+    public UnsuccessfulRegister() {
 
     }
 
-    public UnsuccessfulRegister(String error){
+    public UnsuccessfulRegister(String error) {
         this.error = error;
     }
 

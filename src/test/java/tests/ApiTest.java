@@ -30,7 +30,7 @@ public class ApiTest {
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserClass.class);
         users.forEach(x -> softAssertions.assertThat(x.getAvatar()).contains(x.getId().toString()));
-        softAssertions.assertThat(users.stream().allMatch(x->x.getEmail().endsWith("reqres.in"))).isTrue();
+        softAssertions.assertThat(users.stream().allMatch(x -> x.getEmail().endsWith("reqres.in"))).isTrue();
         softAssertions.assertAll();
     }
 
@@ -68,6 +68,7 @@ public class ApiTest {
         softAssertions.assertThat(formatter.format(successCreate.getCreatedAt())).isEqualTo(formatter.format(new Date()));
         softAssertions.assertAll();
     }
+
     @Test
     public void createUserByMap() {
         SoftAssertions softAssertions = new SoftAssertions();
@@ -76,7 +77,7 @@ public class ApiTest {
         String name = "test";
         String job = "test";
         Map<String, Object> user = new HashMap<>();
-        user.put("name" , name);
+        user.put("name", name);
         user.put("job", job);
         SuccessCreate successCreate = given()
                 .body(user)
@@ -152,7 +153,7 @@ public class ApiTest {
                 .then().log().all()
                 .extract().body().jsonPath().getList("data", UserClass.class);
         users.forEach(x -> softAssertions.assertThat(x.getAvatar()).contains(x.getId().toString()));
-        softAssertions.assertThat(users.stream().allMatch(x->x.getEmail().endsWith("reqres.in"))).isTrue();
+        softAssertions.assertThat(users.stream().allMatch(x -> x.getEmail().endsWith("reqres.in"))).isTrue();
         softAssertions.assertAll();
     }
 
