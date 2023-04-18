@@ -45,7 +45,6 @@ public class ApiTest {
                 .body()
                 .as(Root.class)
                 .getData();
-
         Assertions.assertEquals("Janet", user.getFirst_name());
 
     }

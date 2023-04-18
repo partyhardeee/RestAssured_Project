@@ -1,16 +1,10 @@
 package pojoClasses.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@AllArgsConstructor
+@Data
 public class RegisterUser {
     private String email;
     private String password;
-
-    public RegisterUser(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 }

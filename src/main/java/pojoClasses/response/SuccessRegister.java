@@ -1,19 +1,11 @@
 package pojoClasses.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class SuccessRegister {
     private Integer id;
     private String token;
 
-    public SuccessRegister() {
-    }
-
-    public SuccessRegister(Integer id, String token) {
-        this.id = id;
-        this.token = token;
-    }
 }
