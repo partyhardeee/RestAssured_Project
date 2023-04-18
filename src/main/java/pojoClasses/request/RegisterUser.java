@@ -1,6 +1,10 @@
 package pojoClasses.request;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class RegisterUser {
     private String email;
     private String password;
@@ -8,13 +12,5 @@ public class RegisterUser {
     public RegisterUser(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

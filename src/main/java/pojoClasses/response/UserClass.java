@@ -1,5 +1,11 @@
 package pojoClasses.response;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UserClass {
     private Integer id;
     private String email;
@@ -18,26 +24,6 @@ public class UserClass {
         this.last_name = last_name;
         this.avatar = avatar;
 
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public String getAvatar() {
-        return avatar;
     }
 }
 

@@ -1,5 +1,10 @@
 package pojoClasses.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Data {
     private Integer id;
     private String email;
@@ -10,26 +15,13 @@ public class Data {
     public Data() {
     }
 
-    public Integer getId() {
-        return id;
+    public Data(Integer id, String email, String first_name, String last_name, String avatar) {
+        this.id = id;
+        this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.avatar = avatar;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
 }
 
 

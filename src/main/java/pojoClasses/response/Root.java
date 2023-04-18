@@ -1,9 +1,12 @@
 package pojoClasses.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Root {
     private Data data;
@@ -19,21 +22,5 @@ public class Root {
         this.name = name;
         this.job = job;
         this.updatedAt = updatedAt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Data getData() {
-        return data;
     }
 }
